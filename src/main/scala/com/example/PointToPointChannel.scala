@@ -35,9 +35,12 @@ object PointToPointChannelDriver extends CompletableApp(4) {
   actorB ! "Goodbye again, from actor C!"
   actorB ! "Hello again, from ActorA!"
 
-  awaitCompletion
+  // awaitCompletion
 
+  Thread.sleep(1000)
+  system.terminate
   println("PointToPointChannel: completed.")
+  // system.terminate()
 }
 
 class ActorB extends Actor {
