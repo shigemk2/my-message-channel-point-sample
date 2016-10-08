@@ -60,6 +60,12 @@ class ActorB extends Actor {
         (if (message.startsWith("Goodbye again")) 1 else 0)
       assert(goodbye == 0 || goodbye > goodbyAgain)
 
+      println("--------------------")
+      println(s"goodbye: $goodbye")
+      println(s"goodbyeAgain: $goodbyAgain")
+      println(s"hello: $hello")
+      println(s"helloAgain: $helloAgain")
+      println("--------------------")
       PointToPointChannelDriver.completeStep()
   }
 }
