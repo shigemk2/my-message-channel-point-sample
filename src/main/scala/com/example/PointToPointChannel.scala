@@ -28,7 +28,16 @@ class CompletableApp(val steps:Int) extends App {
 }
 
 object PointToPointChannelDriver extends CompletableApp(4) {
-  // val actorB = system.actorOf(Props[ActorB])
+  val actorB = system.actorOf(Props[ActorB])
+
+  actorB ! "Goodbye, from actor C!"
+  actorB ! "Hello, from actor A!"
+  actorB ! "Goodbye again, from actor C!"
+  actorB ! "Hello again, from ActorA!"
+
+  awaitCompletion
+
+  println("PointToPointChannel: completed.")
 }
 
 class ActorB extends Actor {
