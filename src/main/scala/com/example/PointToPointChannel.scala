@@ -27,7 +27,30 @@ class CompletableApp(val steps:Int) extends App {
   def completeStep() = completion.countDown()
 }
 
-//object PointToPointChannelDriver extends CompletableApp(4) {
-//  // val actorB = system
-//
-//}
+object PointToPointChannelDriver extends CompletableApp(4) {
+  // val actorB = system.actorOf(Props[ActorB])
+}
+
+class ActorB extends Actor {
+  var goodbye = 0
+  var goodbyAgain = 0
+  var hello = 0
+  var helloAgain = 0
+
+  def receive = {
+    case message: String =>
+      hello = hello +
+        (if (message.contains("Hello")) 1 else 0)
+      helloAgain = helloAgain +
+        (if (message.startsWith("Hello again")) 1 else 0)
+      assert(hello == 0 || hello > helloAgain)
+
+      goodbye = goodbye +
+        (if (message.contains("Goodbye")) 1 else 0)
+      goodbyAgain = goodbyAgain +
+        (if (message.startsWith("Goodbye again")) 1 else 0)
+      assert(goodbye == 0 || goodbye > goodbyAgain)
+
+      PointToPointChannelDriver.completeStep()
+  }
+}
