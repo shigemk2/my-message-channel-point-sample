@@ -4,4 +4,6 @@
 
 CompletableAppはCoundDownLatch.awaitとsystem.terminateを使っている。
 
+FIFOなメールボックス。
+
 https://github.com/VaughnVernon/ReactiveMessagingPatterns_ActorModel
